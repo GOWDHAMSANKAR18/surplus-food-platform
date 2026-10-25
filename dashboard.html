@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Impact & Transparency — GATE-WAY</title>
+    <meta name="description" content="Explore real-time surplus food redistribution statistics, environmental carbon reduction metrics, and city impact data on GATE-WAY.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ===== TOP NAVIGATION ===== -->
+    <header class="topbar" style="position: sticky; top:0; background: var(--bg-surface); z-index: 100;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="sidebar-brand-logo">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+            </div>
+            <a href="index.html" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main); letter-spacing: -0.02em;">
+                GATE-WAY <span style="font-size: 0.75rem; font-weight: 600; color: var(--primary-600); background: var(--primary-50); padding: 2px 8px; border-radius: 12px; margin-left: 6px;">Impact Platform</span>
+            </a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 14px;">
+            <button class="theme-toggle-btn" onclick="toggleTheme()"></button>
+            <a href="index.html" class="btn btn-primary btn-sm">
+                Sign In / Portal →
+            </a>
+        </div>
+    </header>
+
+    <!-- ===== HERO IMPACT SECTION ===== -->
+    <section class="public-hero">
+        <div style="max-width: 800px; margin: 0 auto;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 4px 14px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 999px; color: var(--primary-300); font-size: 0.85rem; font-weight: 600; margin-bottom: 20px;">
+                🌱 Verified Environmental & Community Metrics
+            </div>
+            <h1 style="font-size: 2.75rem; font-weight: 800; color: white; margin-bottom: 16px;">GATE-WAY Social Impact Dashboard</h1>
+            <p style="font-size: 1.1rem; color: var(--slate-200); max-width: 640px; margin: 0 auto 32px auto; line-height: 1.6;">
+                Transparent, platform-wide metrics tracking food waste diversion, nutritious meals served, and landfill greenhouse gas prevention.
+            </p>
+        </div>
+
+        <!-- HERO KPI CARDS -->
+        <div class="content-container" style="padding-top: 0; max-width: 1100px;">
+            <div class="kpi-grid" style="margin-bottom: 0;">
+                <div class="kpi-card" style="border-color: rgba(255,255,255,0.1);">
+                    <div class="kpi-icon-container kpi-icon-emerald">🍽️</div>
+                    <div class="kpi-details">
+                        <div class="kpi-value" id="totalKg">0</div>
+                        <div class="kpi-label">Kilograms Food Saved</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" style="border-color: rgba(255,255,255,0.1);">
+                    <div class="kpi-icon-container kpi-icon-amber">🍛</div>
+                    <div class="kpi-details">
+                        <div class="kpi-value" id="totalMeals">0</div>
+                        <div class="kpi-label">Nutritious Meals Served</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card" style="border-color: rgba(255,255,255,0.1);">
+                    <div class="kpi-icon-container kpi-icon-blue">🌱</div>
+                    <div class="kpi-details">
+                        <div class="kpi-value" id="totalCO2">0</div>
+                        <div class="kpi-label">kg CO₂ Emissions Diverted</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MAIN CONTENT CONTAINER ===== -->
+    <main class="content-container">
+        
+        <!-- ENVIRONMENTAL & CALCULATION METRICS -->
+        <div class="dashboard-grid">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                            Environmental Carbon Mitigation
+                        </h3>
+                        <span class="badge badge-available">Live Platform Data</span>
+                    </div>
+
+                    <div id="carbonMessage" style="padding: 16px 20px; background: var(--primary-50); border: 1px solid var(--primary-200); border-radius: var(--radius-md); color: var(--primary-800); font-weight: 600; font-size: 1.05rem; margin-bottom: 20px; text-align: center;">
+                        Loading impact summary...
+                    </div>
+
+                    <div style="background: var(--bg-subtle); padding: 20px; border-radius: var(--radius-md);">
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 10px;">Methodology & UN Sustainable Development Goals (SDG)</h4>
+                        <ul style="margin-left: 20px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;">
+                            <li><strong>Nutritious Meal Conversion:</strong> 1 kg of edible surplus food provides approximately 2 balanced meals (500g average serving).</li>
+                            <li><strong>Landfill Methane Prevention:</strong> Diverting 1 kg of organic food waste from landfills avoids ~2.5 kg of CO₂ equivalent GHG emissions.</li>
+                            <li><strong>Global Alignment:</strong> Supports UN <strong>SDG 2 (Zero Hunger)</strong>, <strong>SDG 12 (Responsible Consumption)</strong>, and <strong>SDG 13 (Climate Action)</strong>.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CITY IMPACT CHART -->
+            <div class="col-4">
+                <div class="card" style="height: 100%;">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                            City Breakdown
+                        </h3>
+                    </div>
+
+                    <div id="cityStats">
+                        <div class="skeleton" style="height: 120px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RECENT ACTIVITY TIMELINE -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            Recent Completed Food Pickups
+                        </h3>
+                    </div>
+
+                    <div id="recentActivity">
+                        <div class="skeleton" style="height: 100px; width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HOW IT WORKS SECTION -->
+            <div class="col-12">
+                <div style="margin: 32px 0 20px 0; text-align: center;">
+                    <h2 style="font-size: 1.75rem; font-weight: 800; color: var(--text-main);">How GATE-WAY Works</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;">An end-to-end transparent workflow from donor post to final delivery</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                    <div class="card" style="text-align: center; padding: 24px;">
+                        <div style="width: 44px; height: 44px; background: var(--primary-50); color: var(--primary-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin: 0 auto 14px auto;">1</div>
+                        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px;">Listing Creation</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Donors list surplus food with quantity, expiry timer, and encrypted S3 proof photo.</p>
+                    </div>
+
+                    <div class="card" style="text-align: center; padding: 24px;">
+                        <div style="width: 44px; height: 44px; background: var(--warning-50); color: var(--warning-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin: 0 auto 14px auto;">2</div>
+                        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px;">Priority Match</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">NGOs discover nearby food scored by distance, expiry urgency, and capacity.</p>
+                    </div>
+
+                    <div class="card" style="text-align: center; padding: 24px;">
+                        <div style="width: 44px; height: 44px; background: var(--info-50); color: var(--info-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin: 0 auto 14px auto;">3</div>
+                        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px;">Logistics & Volunteers</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">NGOs or community volunteers accept and coordinate pickup times.</p>
+                    </div>
+
+                    <div class="card" style="text-align: center; padding: 24px;">
+                        <div style="width: 44px; height: 44px; background: var(--primary-50); color: var(--primary-600); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.1rem; margin: 0 auto 14px auto;">4</div>
+                        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 6px;">Verified Impact</h4>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Upon delivery completion, platform stats & ESG reports update dynamically.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="background-color: var(--slate-900); color: var(--slate-300); padding: 40px 24px; border-top: 1px solid var(--slate-800); margin-top: 60px;">
+        <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center;">
+            <div>
+                <div style="font-size: 1.2rem; font-weight: 800; color: white; margin-bottom: 6px;">GATE-WAY</div>
+                <div style="font-size: 0.85rem; color: var(--slate-400);">Surplus Food Redistribution & Social Impact Platform</div>
+            </div>
+
+            <div style="display: flex; gap: 20px; font-size: 0.9rem;">
+                <a href="index.html" style="color: var(--slate-300);">Login / Portal</a>
+                <a href="dashboard.html" style="color: var(--primary-400);">Public Impact</a>
+                <a href="/api/health" target="_blank" style="color: var(--slate-300);">System Health API</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== DASHBOARD SCRIPT ===== -->
+    <script type="module" src="js/dashboard.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE-WAY — Surplus Food Redistribution Platform</title>
+    <meta name="description" content="Connect food donors, NGOs, and volunteers to redistribute surplus food before it becomes waste. Track impact, carbon reduction, and secure cloud storage.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="auth-page-container">
+        
+        <!-- ===== LEFT SIDE: BRAND / PRODUCT HERO PANEL ===== -->
+        <div class="auth-hero-panel">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="sidebar-brand-logo">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                    </div>
+                    <span style="font-size: 1.4rem; font-weight: 800; color: #ffffff; letter-spacing: -0.02em;">GATE-WAY</span>
+                </div>
+
+                <button class="theme-toggle-btn" onclick="toggleTheme()"></button>
+            </div>
+
+            <div class="auth-hero-content">
+                <div class="auth-hero-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>Zero Waste Social Impact Platform</span>
+                </div>
+
+                <h1 class="auth-hero-title">Turning Surplus Into Shared Meals</h1>
+                
+                <p class="auth-hero-subtitle">
+                    Connecting restaurants, hostels, NGOs, and community volunteers on a unified platform to ensure no edible food goes to waste.
+                </p>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                        </div>
+                        <div class="benefit-title">Reduce Food Waste</div>
+                        <div class="benefit-desc">Redirect edible surplus food directly from donors to nearby beneficiaries.</div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-3-3"/><path d="m14 14 2.5 2.5"/><path d="M22 22 17.5 17.5"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3"/></svg>
+                        </div>
+                        <div class="benefit-title">Empower Communities</div>
+                        <div class="benefit-desc">Support local shelters and NGOs with immediate food access.</div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div class="benefit-title">Track ESG Impact</div>
+                        <div class="benefit-desc">Real-time metrics on meals served and CO₂ emissions prevented.</div>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+                        </div>
+                        <div class="benefit-title">S3 Verification</div>
+                        <div class="benefit-desc">Encrypted cloud document storage with SHA-256 integrity verification.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <span style="font-size: 0.85rem; color: var(--slate-400);">GATE-WAY Platform</span>
+                <a href="dashboard.html" style="color: var(--primary-400); font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 6px;">
+                    View Public Impact Dashboard →
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== RIGHT SIDE: AUTHENTICATION CARD ===== -->
+        <div class="auth-form-panel">
+            <div class="auth-card">
+                
+                <div class="auth-tabs">
+                    <button type="button" class="auth-tab active" id="tabLogin" data-tab="login">Sign In</button>
+                    <button type="button" class="auth-tab" id="tabSignup" data-tab="signup">Create Account</button>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <form id="loginForm" class="auth-form">
+                    <div style="margin-bottom: 24px;">
+                        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Welcome back</h2>
+                        <p style="font-size: 0.9rem; color: var(--text-muted);">Enter your credentials to access your dashboard</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="name@organization.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label class="form-label" for="loginPassword" style="margin-bottom: 0;">Password</label>
+                        </div>
+                        <div style="position: relative;">
+                            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                            <button type="button" id="toggleLoginPassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.8rem;">
+                                Show
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 8px;">
+                        Sign In to Dashboard
+                    </button>
+
+                    <div style="margin-top: 16px; padding: 12px; background: var(--bg-subtle); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; text-align: center;">
+                            Quick Demo Logins (Click to autofill)
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;">
+                            <button type="button" class="btn btn-outline btn-sm demo-fill-btn" data-email="donor@example.com" data-pass="password123" style="font-size: 0.75rem; padding: 6px 4px;">🍽️ Donor</button>
+                            <button type="button" class="btn btn-outline btn-sm demo-fill-btn" data-email="ngo@example.com" data-pass="password123" style="font-size: 0.75rem; padding: 6px 4px;">🤝 NGO</button>
+                            <button type="button" class="btn btn-outline btn-sm demo-fill-btn" data-email="volunteer@example.com" data-pass="password123" style="font-size: 0.75rem; padding: 6px 4px;">🚴 Volunteer</button>
+                            <button type="button" class="btn btn-outline btn-sm demo-fill-btn" data-email="admin@example.com" data-pass="password123" style="font-size: 0.75rem; padding: 6px 4px;">🛡️ Admin</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- SIGNUP FORM -->
+                <form id="signupForm" class="auth-form hidden">
+                    <div style="margin-bottom: 20px;">
+                        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 4px;">Join GATE-WAY</h2>
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">Select your role and register to start redistributing surplus food</p>
+                    </div>
+
+                    <!-- Visual Role Selection Cards -->
+                    <div class="form-group">
+                        <label class="form-label">Select Your Role</label>
+                        <input type="hidden" id="signupRole" value="donor" required>
+                        <div class="role-cards-grid">
+                            <div class="role-card selected" data-role="donor">
+                                <div class="role-card-icon">🍽️</div>
+                                <div class="role-card-title">Donor</div>
+                                <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Hotels / PGs</div>
+                            </div>
+                            <div class="role-card" data-role="ngo">
+                                <div class="role-card-icon">🤝</div>
+                                <div class="role-card-title">NGO</div>
+                                <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Distribute</div>
+                            </div>
+                            <div class="role-card" data-role="volunteer">
+                                <div class="role-card-icon">🚴</div>
+                                <div class="role-card-title">Volunteer</div>
+                                <div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 2px;">Transport</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupName">Full Name / Organization Name</label>
+                        <input type="text" id="signupName" class="form-input" placeholder="e.g. Green Palace Hotel" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" class="form-input" placeholder="org@domain.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="signupPhone">Phone</label>
+                            <input type="tel" id="signupPhone" class="form-input" placeholder="+91 9876543210" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupPassword">Password</label>
+                        <div style="position: relative;">
+                            <input type="password" id="signupPassword" class="form-input" placeholder="Min. 6 characters" required minlength="6">
+                            <button type="button" id="toggleSignupPassword" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 0.8rem;">
+                                Show
+                            </button>
+                        </div>
+                        <div id="passwordStrength" style="height: 4px; border-radius: 2px; margin-top: 6px; background: var(--border-color); transition: all 0.3s;"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signupAddress">Street Address & City</label>
+                        <input type="text" id="signupAddress" class="form-input" placeholder="e.g. 123 MG Road, Bengaluru" required>
+                    </div>
+
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label class="form-label" style="margin-bottom:0;">Coordinates (Lat, Lng)</label>
+                            <button type="button" id="detectLocationBtn" class="btn btn-ghost btn-sm" style="padding:0; color:var(--primary-600);">
+                                📍 Auto-Detect Location
+                            </button>
+                        </div>
+                        <div class="form-row">
+                            <input type="number" id="signupLat" class="form-input" placeholder="Latitude (e.g. 12.9715)" step="any" required>
+                            <input type="number" id="signupLng" class="form-input" placeholder="Longitude (e.g. 77.5945)" step="any" required>
+                        </div>
+                    </div>
+
+                    <div id="ngoFields" class="form-group hidden">
+                        <label class="form-label" for="signupCapacity">NGO Pickup Capacity (kg per batch)</label>
+                        <input type="number" id="signupCapacity" class="form-input" placeholder="e.g. 50" min="1">
+                    </div>
+
+                    <button type="submit" id="signupSubmitBtn" class="btn btn-primary btn-lg" style="width: 100%; margin-top: 8px;">
+                        Complete Registration
+                    </button>
+                </form>
+
+                <div style="margin-top: 24px; text-align: center;">
+                    <a href="dashboard.html" style="font-size: 0.85rem; color: var(--text-muted); text-decoration: underline;">
+                        Browse Public Statistics Dashboard
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

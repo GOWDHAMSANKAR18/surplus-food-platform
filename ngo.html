@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGO Dashboard — GATE-WAY</title>
+    <meta name="description" content="Discover nearby surplus food listings, view smart priority scores, request food pickups, and track community impact.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="app-shell">
+        
+        <!-- ===== SIDEBAR NAVIGATION ===== -->
+        <aside class="sidebar" id="appSidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand-logo">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                </div>
+                <div class="sidebar-brand-text">
+                    GATE-WAY <span class="sidebar-brand-tag">NGO</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main Menu</div>
+                
+                <a href="#overview" class="nav-item active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span>Overview</span>
+                </a>
+
+                <a href="#available-food" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+                    <span>Available Food</span>
+                </a>
+
+                <a href="#accepted-pickups" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                    <span>My Accepted Pickups</span>
+                </a>
+
+                <a href="#ngo-impact" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                    <span>Impact Stats</span>
+                </a>
+
+                <div class="nav-section-label" style="margin-top: 16px;">Account</div>
+
+                <div class="nav-item" onclick="openProfileModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>Profile Info</span>
+                </div>
+
+                <div class="nav-item" id="logoutBtnNav" style="color: var(--danger-500);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <span>Logout</span>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile-snippet" onclick="openProfileModal()">
+                    <div class="user-avatar" id="avatarInitial">N</div>
+                    <div class="user-info-text">
+                        <div class="user-name-text" id="sidebarUserName">NGO Organization</div>
+                        <div class="user-role-text">NGO Beneficiary Partner</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT AREA ===== -->
+        <div class="app-main">
+            
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                    </button>
+                    <div>
+                        <div class="topbar-title">NGO Dashboard</div>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()"></button>
+                    <span class="badge badge-approved">🤝 NGO Portal</span>
+                    <button id="logoutBtn" class="btn btn-outline btn-sm">Logout</button>
+                </div>
+            </header>
+
+            <!-- MAIN CONTAINER -->
+            <main class="content-container">
+                
+                <!-- PAGE HEADER -->
+                <div class="page-header" id="overview">
+                    <h1>Available Food Near You, <span id="userNameHeader">Partner</span></h1>
+                    <p>Discover surplus listings, smart priority rankings, and coordinate food pickup logistics.</p>
+                </div>
+
+                <!-- TOP KPI CARDS -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-emerald">🍽️</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="availableCount">0</div>
+                            <div class="kpi-label">Available Listings</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-amber">📦</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="ngoKg">0</div>
+                            <div class="kpi-label">kg Food Collected</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-blue">🍛</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="ngoMeals">0</div>
+                            <div class="kpi-label">Meals Served</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-emerald">🤝</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="ngoPickups">0</div>
+                            <div class="kpi-label">Completed Pickups</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AVAILABLE FOOD LISTINGS SECTION -->
+                <div class="card" id="available-food">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+                            Available Food Listings (Nearby Donors)
+                        </h3>
+                    </div>
+
+                    <!-- FILTER TOOLBAR -->
+                    <div class="filter-toolbar">
+                        <div class="filter-group">
+                            <div class="search-input-wrapper">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <input type="text" id="searchFood" class="form-input" placeholder="Search food type or donor...">
+                            </div>
+
+                            <select id="filterDistance" class="form-select" style="width: auto;">
+                                <option value="all">All Distances</option>
+                                <option value="5">Within 5 km</option>
+                                <option value="10" selected>Within 10 km</option>
+                                <option value="25">Within 25 km</option>
+                            </select>
+
+                            <select id="filterUrgency" class="form-select" style="width: auto;">
+                                <option value="all">All Expiries</option>
+                                <option value="urgent">Urgent (&lt; 2h)</option>
+                            </select>
+
+                            <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
+                                <input type="checkbox" id="showRecurring" style="width: 16px; height: 16px; accent-color: var(--primary-600);">
+                                <span>Recurring Only</span>
+                            </label>
+                        </div>
+
+                        <div class="filter-group">
+                            <span id="matchCountBadge" class="badge badge-available" style="font-size: 0.75rem;">0 Listings</span>
+                            <select id="sortFood" class="form-select" style="width: auto;">
+                                <option value="priority">Sort: Highest Priority</option>
+                                <option value="nearest">Sort: Nearest First</option>
+                                <option value="expiring">Sort: Expiring Soonest</option>
+                                <option value="quantity">Sort: Largest Quantity</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="availableListings" class="listings-grid">
+                        <div class="skeleton" style="height: 160px; grid-column: 1 / -1;"></div>
+                    </div>
+                </div>
+
+                <!-- ACCEPTED PICKUPS SECTION -->
+                <div class="card" id="accepted-pickups">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            Your Accepted Food Pickups
+                        </h3>
+                    </div>
+
+                    <div id="acceptedListings">
+                        <div class="skeleton" style="height: 120px;"></div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- REQUEST PICKUP MODAL -->
+    <div id="requestModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Submit Pickup Request</div>
+                <button type="button" class="modal-close-btn" onclick="closeRequestModal()">✕</button>
+            </div>
+            
+            <form id="requestForm">
+                <div class="modal-body">
+                    <div id="requestListingSummary" style="padding: 12px; background: var(--bg-subtle); border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.9rem;">
+                        <!-- Summary injected dynamically -->
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestNgoName">NGO Organization Name</label>
+                        <input type="text" id="requestNgoName" class="form-input" readonly required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestContact">Contact Phone Number</label>
+                        <input type="tel" id="requestContact" class="form-input" placeholder="+91 9876543210" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestPickupTime">Estimated Pickup Time</label>
+                        <input type="datetime-local" id="requestPickupTime" class="form-input" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="requestMessage">Optional Message for Donor</label>
+                        <textarea id="requestMessage" class="form-textarea" rows="3" placeholder="e.g. Our vehicle will arrive in approximately 30 minutes."></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closeRequestModal()">Cancel</button>
+                    <button type="submit" id="submitRequestBtn" class="btn btn-primary">Submit Pickup Request</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- INTEGRITY VERIFICATION MODAL -->
+    <div id="integrityModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" style="display: flex; align-items: center; gap: 8px; color: var(--primary-600);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                    S3 SHA-256 File Integrity Verification
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeIntegrityModal()">✕</button>
+            </div>
+            
+            <div class="modal-body" id="integrityDetails">
+                <p>Fetching S3 file and verifying SHA-256 checksum...</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeIntegrityModal()">Close Verification</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">NGO Profile Information</div>
+                <button type="button" class="modal-close-btn" onclick="closeProfileModal()">✕</button>
+            </div>
+
+            <div class="modal-body" id="profileModalBody">
+                <p>Loading profile details...</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeProfileModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROOF-OF-DELIVERY (PoD) & SETTLEMENT MODAL -->
+    <div id="podModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" style="display: flex; align-items: center; gap: 8px; color: var(--primary-600);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Confirm Proof of Delivery (PoD)
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closePodModal()">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <div style="background: var(--bg-subtle); padding: 14px; border-radius: var(--radius-md); margin-bottom: 16px; border: 1px solid var(--border-color);">
+                    <div style="font-weight: 700; color: var(--text-main); font-size: 1rem;" id="podFoodTitle">Food Donation</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;" id="podFoodMeta">Loading details...</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="podBeneficiariesInput">Beneficiaries Fed / Meals Served</label>
+                    <input type="number" id="podBeneficiariesInput" class="form-input" min="1" max="50000" placeholder="e.g. 50">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Automatically estimated at 2 meals per kg collected.</div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="podNotesInput">Delivery & Shelter Recipient Notes</label>
+                    <textarea id="podNotesInput" class="form-input" rows="3" placeholder="e.g., Delivered to Indiranagar Night Shelter, received hot and fresh by Director."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Digital PoD Transaction Code</label>
+                    <div style="padding: 10px; background: var(--bg-subtle); border-radius: var(--radius-md); font-family: monospace; font-size: 0.85rem; color: var(--primary-600); font-weight: bold;" id="podProofCodeDisplay">
+                        POD-GENERATING...
+                    </div>
+                </div>
+
+                <div id="podErrorMsg" class="hidden" style="color: var(--danger-600); font-size: 0.85rem; margin-top: 8px;"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closePodModal()">Cancel</button>
+                <button type="button" id="confirmPodBtn" class="btn btn-primary" onclick="submitPodCompletion()">
+                    ✓ Settle & Complete Delivery
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/ngo.js"></script>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard — GATE-WAY</title>
+    <meta name="description" content="Manage surplus food listings, upload proof documents securely to Amazon S3, track pickup requests, and export ESG impact reports.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="app-shell">
+        
+        <!-- ===== SIDEBAR NAVIGATION ===== -->
+        <aside class="sidebar" id="appSidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand-logo">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                </div>
+                <div class="sidebar-brand-text">
+                    GATE-WAY <span class="sidebar-brand-tag">Donor</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-label">Main Menu</div>
+                
+                <a href="#overview" class="nav-item active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    <span>Overview</span>
+                </a>
+
+                <a href="#create-listing" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    <span>Create Listing</span>
+                </a>
+
+                <a href="#my-listings" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+                    <span>My Listings</span>
+                </a>
+
+                <a href="#pickup-requests" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-3-3"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3"/></svg>
+                    <span>Pickup Requests</span>
+                </a>
+
+                <a href="#impact" class="nav-item">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M11 20A60.4 60.4 0 0 1 2 2a60.4 60.4 0 0 1 18 9 17.6 17.6 0 0 1-9 9z"/><path d="M2 2l18 18"/></svg>
+                    <span>ESG Impact</span>
+                </a>
+
+                <div class="nav-section-label" style="margin-top: 16px;">Account</div>
+
+                <div class="nav-item" onclick="openProfileModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span>Profile Info</span>
+                </div>
+
+                <div class="nav-item" id="logoutBtnNav" style="color: var(--danger-500);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="nav-icon"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                    <span>Logout</span>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile-snippet" onclick="openProfileModal()">
+                    <div class="user-avatar" id="avatarInitial">D</div>
+                    <div class="user-info-text">
+                        <div class="user-name-text" id="sidebarUserName">Donor Account</div>
+                        <div class="user-role-text">Food Donor Partner</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT AREA ===== -->
+        <div class="app-main">
+            
+            <!-- TOPBAR -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+                    </button>
+                    <div>
+                        <div class="topbar-title">Donor Dashboard</div>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()"></button>
+                    <span class="badge badge-available">🍽️ Donor Portal</span>
+                    <button id="logoutBtn" class="btn btn-outline btn-sm">
+                        Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- MAIN CONTAINER -->
+            <main class="content-container">
+                
+                <!-- PAGE HEADER -->
+                <div class="page-header" id="overview">
+                    <h1>Good morning, <span id="userNameHeader">Partner</span></h1>
+                    <p>Manage your surplus food listings and track real-time community environmental impact.</p>
+                </div>
+
+                <!-- TOP KPI CARDS -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-emerald">📦</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="donorKg">0</div>
+                            <div class="kpi-label">Total kg Donated</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-amber">🍽️</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="activeListingsCount">0</div>
+                            <div class="kpi-label">Active Food Listings</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-blue">🤝</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="pendingRequestsCount">0</div>
+                            <div class="kpi-label">Pending NGO Requests</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-emerald">🍛</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="donorMeals">0</div>
+                            <div class="kpi-label">Meals Supported</div>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon-container kpi-icon-blue">🌱</div>
+                        <div class="kpi-details">
+                            <div class="kpi-value" id="donorCO2">0</div>
+                            <div class="kpi-label">kg CO₂ Prevented</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GRID CONTENT -->
+                <div class="dashboard-grid">
+                    
+                    <!-- CREATE LISTING FORM PANEL -->
+                    <div class="col-8" id="create-listing">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                                    Create Surplus Food Listing
+                                </h3>
+                                <span class="badge badge-available">S3 Direct Upload</span>
+                            </div>
+
+                            <form id="listingForm">
+                                <div class="form-group">
+                                    <label class="form-label" for="foodType">Food Description & Details</label>
+                                    <input type="text" id="foodType" class="form-input" placeholder="e.g. Cooked Rice, Paneer Curry & Chapati (50 portions)" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="quantity">Quantity (kg)</label>
+                                        <input type="number" id="quantity" class="form-input" placeholder="e.g. 25" min="1" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="expiryHours">Safe Consumption Hours</label>
+                                        <input type="number" id="expiryHours" class="form-input" placeholder="e.g. 4" min="1" max="24" value="4" required>
+                                    </div>
+                                </div>
+
+                                <!-- FILE UPLOAD ZONE -->
+                                <div class="form-group">
+                                    <label class="form-label">Food / Donation Proof Documentation (Amazon S3 Storage)</label>
+                                    
+                                    <div class="file-drop-zone" id="dropZone" onclick="document.getElementById('foodImage').click()">
+                                        <div class="drop-icon">📸</div>
+                                        <div class="file-drop-text">
+                                            <strong>Click to upload photo or PDF proof</strong> or drag and drop
+                                        </div>
+                                        <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">
+                                            Allowed: JPG, PNG, PDF (Max 5MB). Encrypted with AWS SSE-S3 & SHA-256 Integrity.
+                                        </div>
+                                        <input type="file" id="foodImage" accept="image/jpeg,image/png,application/pdf" style="display:none;">
+                                    </div>
+
+                                    <div id="fileSelectedBadge" class="selected-file-badge hidden">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        <span id="selectedFileName">filename.jpg</span>
+                                        <span id="selectedFileSize" style="color:var(--text-muted); font-size:0.75rem;">(0 KB)</span>
+                                        <button type="button" id="removeFileBtn" style="background:none; border:none; color:var(--danger-500); cursor:pointer; font-weight:700; margin-left:8px;">✕</button>
+                                    </div>
+                                </div>
+
+                                <!-- RECURRING DONATION CHECKBOX -->
+                                <div class="form-group" style="padding: 12px; background: var(--bg-subtle); border-radius: var(--radius-md);">
+                                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; font-size: 0.9rem;">
+                                        <input type="checkbox" id="isRecurring" style="width:18px; height:18px; accent-color:var(--primary-600);">
+                                        <span>Recurring Surplus Donation (Daily Schedule)</span>
+                                    </label>
+                                    
+                                    <div id="recurringFields" class="hidden" style="margin-top: 12px;">
+                                        <label class="form-label" for="expectedDaily">Expected Daily Surplus (kg)</label>
+                                        <input type="number" id="expectedDaily" class="form-input" placeholder="e.g. 15" min="1">
+                                    </div>
+                                </div>
+
+                                <button type="submit" id="createListingSubmitBtn" class="btn btn-primary btn-lg" style="width: 100%;">
+                                    Create Listing & Encrypt to S3
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- IMPACT REPORT EXPORT CARD -->
+                    <div class="col-4" id="impact">
+                        <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                        ESG Corporate Report
+                                    </h3>
+                                </div>
+
+                                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; line-height: 1.6;">
+                                    Generate an official ESG environmental compliance summary for your organization covering food waste reduction and carbon offsets.
+                                </p>
+
+                                <div style="background: var(--primary-50); border: 1px solid var(--primary-200); border-radius: var(--radius-md); padding: 16px; margin-bottom: 20px;">
+                                    <div style="font-weight: 700; color: var(--primary-800); font-size: 0.9rem; margin-bottom: 6px;">
+                                        ✓ UN Sustainability Compliance
+                                    </div>
+                                    <div style="font-size: 0.8rem; color: var(--primary-700); line-height: 1.5;">
+                                        Includes verified S3 SHA-256 document checksums and carbon calculation methodology.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="downloadReport" class="btn btn-secondary btn-lg" style="width: 100%;">
+                                Download ESG Report (.txt)
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- MY ACTIVE LISTINGS SECTION -->
+                    <div class="col-12" id="my-listings">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
+                                    Your Active Listings & S3 Proof Documents
+                                </h3>
+                            </div>
+
+                            <!-- FILTER TOOLBAR -->
+                            <div class="filter-toolbar">
+                                <div class="filter-group">
+                                    <div class="search-input-wrapper">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                        <input type="text" id="searchListings" class="form-input" placeholder="Search my food listings...">
+                                    </div>
+
+                                    <select id="filterStatus" class="form-select" style="width: auto;">
+                                        <option value="all">All Statuses</option>
+                                        <option value="available">Available</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="accepted">Pickup in Progress</option>
+                                        <option value="expiring">Expiring Soon (&lt; 2h)</option>
+                                        <option value="recurring">Recurring Only</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <select id="sortListings" class="form-select" style="width: auto;">
+                                        <option value="newest">Newest First</option>
+                                        <option value="expiry">Expiring Soonest</option>
+                                        <option value="quantity">Largest Quantity</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="activeListings" class="listings-grid">
+                                <div class="skeleton" style="height: 160px; grid-column: 1 / -1;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PICKUP REQUESTS SECTION -->
+                    <div class="col-12" id="pickup-requests">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="card-title-icon"><path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-3-3"/><path d="M2 11.5a10 10 0 0 1 18.8-4.3"/></svg>
+                                    Incoming NGO Pickup Requests
+                                </h3>
+                            </div>
+
+                            <div id="pickupRequests">
+                                <div class="skeleton" style="height: 120px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- INTEGRITY VERIFICATION MODAL -->
+    <div id="integrityModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" style="display: flex; align-items: center; gap: 8px; color: var(--primary-600);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                    S3 SHA-256 File Integrity Verification
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeIntegrityModal()">✕</button>
+            </div>
+            
+            <div class="modal-body" id="integrityDetails">
+                <p>Fetching S3 file and verifying SHA-256 checksum...</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="closeIntegrityModal()">Close Verification</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div id="profileModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title">Donor Profile Information</div>
+                <button type="button" class="modal-close-btn" onclick="closeProfileModal()">✕</button>
+            </div>
+
+            <div class="modal-body" id="profileModalBody">
+                <p>Loading profile details...</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeProfileModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RETRACT / CANCEL LISTING MODAL -->
+    <div id="cancelListingModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-title" style="display: flex; align-items: center; gap: 8px; color: var(--danger-600);">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    Retract Surplus Food Listing
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeCancelModal()">✕</button>
+            </div>
+            
+            <div class="modal-body">
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px;">
+                    Are you sure you want to retract <strong id="cancelFoodTitle" style="color: var(--text-main);">this listing</strong> from the active NGO feed?
+                </p>
+                <div class="form-group">
+                    <label class="form-label" for="cancelReasonSelect">Reason for Retraction</label>
+                    <select id="cancelReasonSelect" class="form-select">
+                        <option value="Food consumed / distributed locally">Food consumed / distributed locally</option>
+                        <option value="Perished or compromised early">Perished or compromised early</option>
+                        <option value="Quantity entered in error">Quantity entered in error</option>
+                        <option value="Logistics unavailability">Logistics unavailability</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="cancelReasonNotes">Additional Notes (Optional)</label>
+                    <input type="text" id="cancelReasonNotes" class="form-input" placeholder="e.g., Donated to nearby walk-in shelter instead">
+                </div>
+                <div id="cancelErrorMsg" class="hidden" style="color: var(--danger-600); font-size: 0.85rem; margin-top: 8px;"></div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeCancelModal()">Keep Active</button>
+                <button type="button" id="confirmCancelBtn" class="btn btn-primary" style="background: var(--danger-600); border-color: var(--danger-600);" onclick="submitCancelListing()">
+                    Confirm Retraction
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/donor.js"></script>
+</body>
+</html>
