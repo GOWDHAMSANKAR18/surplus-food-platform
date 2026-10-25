@@ -12,7 +12,7 @@ This document tracks the verified completion state for the **Cloud-Based Surplus
 
 | S.No. | Requirement | Status | Evidence | Remaining Action |
 |:---:|---|---|---|---|
-| 1 | **Application works locally** | `VERIFIED` | Server runs at `http://localhost:4000`. Connected to live MySQL 8.0 `food_donation` database. Endpoint `GET /api/health` returns `status: "ok"` and `database.status: "connected"`. | None. Fully operational. |
+| 1 | **Application works locally** | `VERIFIED` | 1. Local Node.js: Runs on `http://localhost:4000` with local MySQL 8.0.<br>2. Docker Compose: `gate-wayv-app-1`, `gate-wayv-db-1`, and `gate-wayv-nginx-1` all healthy; Nginx reverse proxy responding at `http://localhost/api/health`. | None. Dual local execution verified. |
 | 2 | **Public PaaS deployment** | `BLOCKED — MANUAL ACTION REQUIRED` | Application is 12-factor compliant. Added declarative `render.yaml` and `Procfile`. Verified build & start scripts. | User to link repository to Render / Railway and trigger deployment. |
 | 3 | **Public application access** | `BLOCKED — MANUAL ACTION REQUIRED` | Health endpoint `/api/health` ready for public probes. Nginx WebSocket and proxy headers configured. | Awaiting public URL from PaaS or EC2 Public IPv4. |
 | 4 | **EC2 instance** | `BLOCKED — MANUAL ACTION REQUIRED` | Step-by-step launch specifications (Ubuntu 22.04 LTS, `t2.micro`, security groups for 22, 80, 443) prepared in `docs/EC2_DEPLOYMENT_GUIDE.md`. | User to launch `t2.micro` instance in AWS Console. |
