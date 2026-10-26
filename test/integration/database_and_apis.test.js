@@ -1,7 +1,7 @@
-import test from 'node:test';
+﻿import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const BASE_URL = 'http://127.0.0.1:4000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 
 async function api(path, options = {}) {
   const headers = { ...(options.headers || {}) };
@@ -444,3 +444,4 @@ test('INTEGRATION: API Contracts, Database Operations & Edge Cases', async (t) =
     assert.equal(res.headers.get('x-frame-options'), 'SAMEORIGIN');
   });
 });
+

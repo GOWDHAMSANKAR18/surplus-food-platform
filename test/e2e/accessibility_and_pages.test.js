@@ -1,9 +1,9 @@
-import test from 'node:test';
+﻿import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const BASE_URL = 'http://127.0.0.1:4000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 const PROJECT_ROOT = 'e:/GATE - WAY V';
 
 const PAGES = [
@@ -74,3 +74,4 @@ test('E2E & DOM: Page Routing, Responsive Layout & Accessibility Standards', asy
     assert.match(cssContent, /--radius-/i);
   });
 });
+

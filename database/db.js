@@ -23,6 +23,14 @@ try {
     user: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: MYSQL_DATABASE,
+    ssl: process.env.MYSQL_SSL === 'true'
+      ? {
+          ca: process.env.MYSQL_SSL_CA
+            ? process.env.MYSQL_SSL_CA.replace(/\\n/g, '\n')
+            : fs.readFileSync(process.env.MYSQL_SSL_CA_PATH, 'utf8'),
+          rejectUnauthorized: true
+        }
+      : undefined,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0,

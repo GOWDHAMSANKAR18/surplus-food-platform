@@ -1,7 +1,7 @@
-import test from 'node:test';
+﻿import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const BASE_URL = 'http://127.0.0.1:4000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 
 async function call(path, options = {}) {
   const headers = { ...(options.headers || {}) };
@@ -254,3 +254,4 @@ test('NEW FEATURES: Donor Cancellation, PoD Settlement & Multi-Facet Discovery',
     assert.ok(actions.includes('COMPLETE_LISTING'), 'Audit log must record COMPLETE_LISTING');
   });
 });
+

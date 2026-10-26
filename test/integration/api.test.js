@@ -1,7 +1,7 @@
-import test from 'node:test';
+﻿import test from 'node:test';
 import assert from 'node:assert/strict';
 
-const BASE_URL = 'http://127.0.0.1:4000';
+const BASE_URL = process.env.BASE_URL || 'http://localhost';
 
 async function apiRequest(path, options = {}) {
   const headers = { ...(options.headers || {}) };
@@ -261,3 +261,4 @@ test('GATE-WAY API Integration Test Suite', async (t) => {
     assert.equal(rawTraversal.status, 404, 'Path traversal must be neutralized');
   });
 });
+
