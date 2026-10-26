@@ -24,12 +24,18 @@ try {
     password: MYSQL_PASSWORD,
     database: MYSQL_DATABASE,
     ssl: process.env.MYSQL_SSL === 'true'
-      ? {
-          ca: process.env.MYSQL_SSL_CA
-            ? process.env.MYSQL_SSL_CA.replace(/\\n/g, '\n')
-            : fs.readFileSync(process.env.MYSQL_SSL_CA_PATH, 'utf8'),
-          rejectUnauthorized: true
-        }
+      ? (() => {
+          let caCert = undefined;
+          if (process.env.MYSQL_SSL_CA) {
+            caCert = process.env.MYSQL_SSL_CA.replace(/\\n/g, '\n');
+          } else if (process.env.MYSQL_SSL_CA_PATH && fs.existsSync(process.env.MYSQL_SSL_CA_PATH)) {
+            caCert = fs.readFileSync(process.env.MYSQL_SSL_CA_PATH, 'utf8');
+          }
+          return {
+            ca: caCert,
+            rejectUnauthorized: Boolean(caCert)
+          };
+        })()
       : undefined,
     waitForConnections: true,
     connectionLimit: 10,
